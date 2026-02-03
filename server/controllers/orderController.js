@@ -34,6 +34,9 @@ export const placeOrderCOD = async (req, res) => {
       paymentType: "COD",
     });
 
+    // CLEAR CART AFTER COD ORDER
+    await User.findByIdAndUpdate(userId, { cartItems: {} });
+
     return res
       .status(200)
       .json({ success: true, message: "Order Placed Successfully" });
