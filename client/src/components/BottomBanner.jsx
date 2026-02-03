@@ -3,7 +3,7 @@ import { assets, features } from "../assets/assets";
 
 const BottomBanner = () => {
   return (
-    <div className="relative mt-24">
+    <div className="relative mt-20">
       <img
         src={assets.bottom_banner_image}
         alt="banner"
@@ -14,9 +14,9 @@ const BottomBanner = () => {
         alt="banner"
         className="w-full md:hidden object-cover"
       />
-      <div className="absolute inset-0 flex flex-col  items-center md:items-end md:justify-center pt-15 md:pt-0 md:pr-24">
+      <div className="absolute inset-0 flex flex-col items-center md:items-end md:justify-center pt-10 md:pt-0 md:pr-5">
         <div>
-          <h1 className="text-4xl md:text-5xl font-semibold text-primary mb-8 md:mb-10">
+          <h1 className="text-4xl md:text-5xl font-semibold text-primary mb-8 md:mb-7">
             Why We Are the Best?
           </h1>
           {features.map((feature, index) => (
