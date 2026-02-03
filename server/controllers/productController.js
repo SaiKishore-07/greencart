@@ -46,7 +46,7 @@ export const addProduct = async (req, res) => {
 // get products : /api/product/list
 export const productList = async (req, res) => {
   try {
-    const products = await Product.find({}).sort({ created: -1 });
+    const products = await Product.find({}).sort({ createdAt: -1 });
     res.status(200).json({ success: true, products });
   } catch (error) {
     console.log(error.message);

@@ -89,7 +89,7 @@ export const placeOrderStripe = async (req, res) => {
     const { origin } = req.headers;
 
     const { items, address } = req.body;
-    if (!address || !items.length === 0) {
+    if (!address || items.length === 0) {
       return res.status(400).json({
         success: false,
         message: "Email and password are required",
