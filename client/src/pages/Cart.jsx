@@ -232,6 +232,7 @@ const Cart = () => {
               <div className="absolute top-12 py-1 bg-white border border-gray-300 text-sm w-full">
                 {addresses.map((address) => (
                   <p
+                    key={address._id}
                     onClick={() => {
                       setSelectedAddresses(address);
                       setShowAddress(false);
