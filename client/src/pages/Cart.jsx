@@ -97,6 +97,8 @@ const Cart = () => {
       toast.error(error.message);
       console.log(error);
     }
+
+    console.log("PAYMENT:", paymentOption);
   };
 
   useEffect(() => {
@@ -256,6 +258,7 @@ const Cart = () => {
           <p className="text-sm font-medium uppercase mt-6">Payment Method</p>
 
           <select
+            value={paymentOption}
             onChange={(e) => setPaymentOption(e.target.value)}
             className="w-full border border-gray-300 bg-white px-3 py-2 mt-2 outline-none"
           >
