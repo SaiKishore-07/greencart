@@ -4,28 +4,41 @@ import Product from "../models/Product.js";
 // add product : /api/product/add
 export const addProduct = async (req, res) => {
   try {
+    // validate images
     if (!req.files || req.files.length === 0) {
       return res
         .status(400)
         .json({ success: false, message: "Images required" });
     }
 
+    // parse product data
     const productData = JSON.parse(req.body.productData);
     const images = req.files;
-    let imagesUrl = await Promise.all(
+
+    // upload images from MEMORY to Cloudinary
+    const imagesUrl = await Promise.all(
       images.map(async (item) => {
-        let result = await cloudinary.uploader.upload(item.path, {
-          resource_type: "image",
+        return new Promise((resolve, reject) => {
+          cloudinary.uploader
+            .upload_stream({ resource_type: "image" }, (error, result) => {
+              if (error) reject(error);
+              else resolve(result.secure_url);
+            })
+            .end(item.buffer); // <-- IMPORTANT (memory buffer)
         });
-        return result.secure_url;
       }),
     );
 
-    await Product.create({ ...productData, image: imagesUrl });
+    // save product
+    await Product.create({
+      ...productData,
+      image: imagesUrl,
+      inStock: true,
+    });
 
     res.status(200).json({ success: true, message: "Product Added" });
   } catch (error) {
-    console.log(error.message);
+    console.log("ADD PRODUCT ERROR:", error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
